@@ -5,7 +5,6 @@ const { MongoMemoryServer } = require('mongodb-memory-server-core');
 
 const conn = require('../../models/connection');
 const { createToDo } = require('../../models/toDoModels');
-const { afterEach } = require('mocha');
 
 
 describe('Insere um novo toDo no BD', () => {
