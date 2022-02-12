@@ -5,7 +5,7 @@ const todoModels = require('../../models/toDoModels.js');
 const { it, describe, before, after } = require('mocha');
 const Sinon = require('sinon');
 
-describe.only('Busca Todos os ToDos no BD SERVICE', () => {
+describe('Busca Todos os ToDos no BD SERVICE', () => {
 
   describe('quando é buscado com sucesso', async () => {
     const payloadToDos = [
