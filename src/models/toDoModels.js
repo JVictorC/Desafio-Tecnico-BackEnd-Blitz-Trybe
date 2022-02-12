@@ -37,9 +37,25 @@ const deleteToDo = async (idToDo) => {
   return statusDeleteMongo;
 }
 
+const updateToDo = async (id, newToDo) => {
+  const db = await conn.connection();
+
+  const statusDeleteMongo = await db.collection('toDo').updateOne(
+    {
+      '_id': ObjectId(id)
+    }, 
+    {
+      $set: {...newToDo}
+    }
+  );
+
+  return statusDeleteMongo;
+}
+
 module.exports = {
   createToDo,
   getAllToDos,
-  deleteToDo
+  deleteToDo,
+  updateToDo
 }
 
