@@ -7,7 +7,7 @@ const conn = require('../../models/connection');
 const { getAllToDos } = require('../../models/toDoModels');
 
 
-describe('Insere um novo toDo no BD', () => {
+describe('Listar todos os Todos do DB', () => {
   const payloadToDos = [
     {
       title: 'Limpar a Casa',
