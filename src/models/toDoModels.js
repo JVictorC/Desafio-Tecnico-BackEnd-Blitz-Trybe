@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const conn = require('./connection');
 
 const maskReturnDataBase = (toDo) => ({
@@ -26,8 +27,19 @@ const getAllToDos = async () => {
   return allTodos.map(maskReturnDataBase);
 }
 
+const deleteToDo = async (idToDo) => {
+  const db = await conn.connection();
+
+  const statusDeleteMongo = await db.collection('toDo').deleteOne({
+    '_id': ObjectId(idToDo)
+  });
+
+  return statusDeleteMongo;
+}
+
 module.exports = {
   createToDo,
-  getAllToDos
+  getAllToDos,
+  deleteToDo
 }
 
