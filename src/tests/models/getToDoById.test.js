@@ -57,6 +57,7 @@ describe.only('Listar todos os Todos do DB', () => {
       const toDoInDataBase = await connectionMock.collection('toDo').findOne({});
       const response = await getToDoById(toDoInDataBase['_id']);
       expect(response).to.have.a.property('id');
+      expect(toDoInDataBase['_id'].toString()).to.be.equal(response.id.toString());
     });
   });
 });
