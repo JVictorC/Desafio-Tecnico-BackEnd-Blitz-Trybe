@@ -8,7 +8,7 @@ const conn = require('../../models/connection');
 const { getToDoById } = require('../../models/toDoModels');
 
 
-describe('Listar todos os Todos do DB', () => {
+describe('Listar o ToDo com o Mesmo Id do DB', () => {
   const payloadToDos = [
     {
       title: 'Limpar a Casa',
