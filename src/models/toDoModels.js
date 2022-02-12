@@ -52,10 +52,26 @@ const updateToDo = async (id, newToDo) => {
   return statusDeleteMongo;
 }
 
+
+const getToDoById = async (idToDo) => {
+  const db = await conn.connection();
+
+  const toDoInDataBase = await db.collection('toDo').findOne(
+    {
+      '_id': ObjectId(idToDo)
+    }, 
+  );
+
+  return [toDoInDataBase].map(maskReturnDataBase)[0];
+}
+
+
+
 module.exports = {
   createToDo,
   getAllToDos,
   deleteToDo,
-  updateToDo
+  updateToDo,
+  getToDoById
 }
 
