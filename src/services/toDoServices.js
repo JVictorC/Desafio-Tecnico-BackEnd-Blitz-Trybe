@@ -25,7 +25,7 @@ const createToDoService = async (newToDo) => {
 const updateToDoService = async (newToDo, idToDo) => {
   validationBody(newToDo, idToDo);
 
-  if(!idToDo) throw { status: 400, message: '"id" is required' }
+  if (!idToDo) throw { status: 400, message: '"id" is required' }
 
   const toDoInDataBase = await todoModels.getToDoById(idToDo);
   if (!toDoInDataBase) throw { status: 404, message: "toDo Not Found In Data Base" };
@@ -52,10 +52,14 @@ const deleteToDoService = async (id) => {
   }
 }
 
+const getAllToDosService = async () => {
+  const allToDos = await todoModels.getAllToDos();
+  return allToDos
+}
 
 module.exports = {
   createToDoService,
   deleteToDoService,
-updateToDoService
-
+  updateToDoService,
+  getAllToDosService
 }
