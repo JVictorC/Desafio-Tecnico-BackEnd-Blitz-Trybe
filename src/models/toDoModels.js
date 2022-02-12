@@ -1,6 +1,15 @@
+const conn = require('./connection');
 
+const createToDo = async (newToDo) => {
+  const db = await conn.connection();
 
-const createToDo = async () => {};
+  const { insertedId: id } = await db.collection('toDo').insertOne(newToDo);
+
+  return {
+    id,
+    ...newToDo
+  };
+};
 
 
 module.exports = {

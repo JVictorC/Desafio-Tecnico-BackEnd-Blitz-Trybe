@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const MONGO_DB_URL = 'mongodb://127.0.0.1:27017/todo';
+const MONGO_DB_URL = 'mongodb://127.0.0.1:27017/toDo';
 
 let schema = null;
 
@@ -11,7 +11,7 @@ async function connection() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    .then((conn) => conn.db('news'))
+    .then((conn) => conn.db('toDo'))
     .then((dbSchema) => {
       schema = dbSchema;
       return schema;
@@ -22,4 +22,4 @@ async function connection() {
     });
 }
 
-module.exports = connection;
+module.exports = { connection };
