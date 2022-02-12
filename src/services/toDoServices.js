@@ -57,9 +57,23 @@ const getAllToDosService = async () => {
   return allToDos
 }
 
+
+const getToDoByIdService = async (idToDo) => {
+  if (!idToDo) throw { status: 400, message: '"id" is required' };
+
+  const toDoInData = await todoModels.getToDoById(idToDo);
+
+  if(!toDoInData) throw { status: 404, message: "toDo Not Found In Data Base" };
+
+  return toDoInData;
+}
+
+
+
 module.exports = {
   createToDoService,
   deleteToDoService,
   updateToDoService,
-  getAllToDosService
+  getAllToDosService,
+  getToDoByIdService
 }
