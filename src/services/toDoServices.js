@@ -1,4 +1,5 @@
 const Joi = require('@hapi/joi');
+const todoModels = require('../models/toDoModels');
 
 const validationBodyToDo = (newToDo) => {
   const { error } = Joi.object({
@@ -14,7 +15,11 @@ const validationBody = (newToDo) => {
 }
 
 const createToDoService = async (newToDo) => {
-  validationBody(newToDo)
+  validationBody(newToDo);
+
+  const toDo = await todoModels.createToDo(newToDo);
+
+  return toDo;
 };
 
 module.exports = {
