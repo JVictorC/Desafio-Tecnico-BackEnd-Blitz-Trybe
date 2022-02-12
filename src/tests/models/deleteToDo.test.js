@@ -38,14 +38,14 @@ describe('Delete um toDo no BD', () => {
   });
 
 
-  describe.only('quando é retornado com sucesso', async () => {
+  describe('quando é apagado com sucesso', async () => {
 
     beforeEach(async () => {
       connectionMock.collection('toDo').deleteMany({});
       connectionMock.collection('toDo').insertMany(payloadToDosInDataBase);
     });
 
-    it('deve retornar um id', async () => {
+    it('deve retornar um Object', async () => {
       const toDoInDataBase = await connectionMock.collection('toDo').findOne({});
       const response = await deleteToDo(toDoInDataBase['_id']);
       expect(response).to.be.a('object');
