@@ -4,14 +4,20 @@ const { MongoClient, ObjectId } = require('mongodb');
 const { MongoMemoryServer } = require('mongodb-memory-server-core');
 
 const conn = require('../../models/connection');
-const { createToDo } = require('../../models/toDoModels');
+const { getAllToDos } = require('../../models/toDoModels');
 
 
 describe('Insere um novo toDo no BD', () => {
-  const payloadToDo = {
-    title: 'Limpar a Casa',
-    description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
-  }
+  const payloadToDos = [
+    {
+      title: 'Limpar a Casa',
+      description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
+    },
+    {
+      title: 'Fazer Comida',
+      description: 'Tenho que preparar a comida hoje',
+    }
+  ]
 
   let DBServer = new MongoMemoryServer();
   let connectionMock;
@@ -32,26 +38,22 @@ describe('Insere um novo toDo no BD', () => {
   });
 
 
-  describe('quando é inserido com sucesso', async () => {
+  describe('quando é retornado com sucesso', async () => {
 
     beforeEach(async () => {
       connectionMock.collection('toDo').deleteMany({});
+      connectionMock.collection('toDo').insertMany(payloadToDos);
+
     });
 
-    it('retorna um objeto', async () => {
-      const response = await createToDo(payloadToDo);
-      expect(response).to.be.a('object');
+    it('retorna um array de ToDos', async () => {
+      const response = await getAllToDos();
+      expect(response).to.be.a('array');
     });
 
-    it('tal objeto possui o "id" do novo toDo inserido', async () => {
-      const response = await createToDo(payloadToDo);
-      expect(response).to.have.a.property('id');
-    });
-
-    it('deve existir um toDo com o título cadastrado!', async () => {
-      await createToDo(payloadToDo);
-      const movieCreated = await connectionMock.collection('toDo').findOne({ title: payloadToDo.title });
-      expect(movieCreated).to.be.not.null;
+    it('todos os toDos possui o "id" do novo toDo inserido', async () => {
+      const response = await getAllToDos();
+      response.forEach((toDo) => expect(toDo).to.have.a.property('id'));
     });
   });
 });
