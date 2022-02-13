@@ -7,7 +7,7 @@ const todoService = require('../../services/toDoServices');
 const toDoControllers = require('../../controllers/toDoControllers');
 const { describe, before, after, it } = require('mocha');
 
-describe('Ao chamar o controller de getTodoById', () => {
+describe('Ao chamar o controller de createToDoController', () => {
   const messageErrorWithOutTitle = { status: 400, message: "\"title\" is required" };
   const messageErrorWithOutDescription = { status: 400, message: '"description" is required' };
   const response = {};
