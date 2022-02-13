@@ -40,8 +40,18 @@ const deleteToDo = async (req, res, _next) => {
   }
 }
 
+const getAllToDos = async (req, res, _next) => {
+  try {
+    const responseData = await toDosServices.getAllToDosService();
+    return res.status(200).json(responseData);
+  } catch (error) {
+    handleError(error, res);
+  }
+}
+
 module.exports = {
   getById,
   createToDo,
-  deleteToDo
+  deleteToDo,
+  getAllToDos
 }
