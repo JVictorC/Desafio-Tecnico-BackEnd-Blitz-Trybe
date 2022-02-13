@@ -7,7 +7,7 @@ const todoService = require('../../services/toDoServices');
 const toDoControllers = require('../../controllers/toDoControllers');
 const { describe, before, after, it } = require('mocha');
 
-describe.only('Ao chamar o controller de getALlToDos', () => {
+describe('Ao chamar o controller de getAllToDos', () => {
   const response = {};
   const request = {};
   const payloadToDos = [
