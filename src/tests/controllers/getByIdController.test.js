@@ -7,7 +7,7 @@ const todoService = require('../../services/toDoServices');
 const toDoControllers = require('../../controllers/toDoControllers');
 const { describe, before, after, it } = require('mocha');
 
-describe.only('Ao chamar o controller de getTodoById', () => {
+describe('Ao chamar o controller de getTodoById', () => {
   const messageErrorNotFoundToDo = { status: 404, message: "toDo Not Found In Data Base" };
   const messageErrorWithOutId = { status: 400, message: "\"id\" is required" };
   const response = {};
@@ -76,7 +76,7 @@ describe.only('Ao chamar o controller de getTodoById', () => {
 
   });
 
-  describe('quando é inserido com sucesso', async () => {
+  describe('quando é retornado com sucesso', async () => {
 
     before(() => {
       request.body = {};
