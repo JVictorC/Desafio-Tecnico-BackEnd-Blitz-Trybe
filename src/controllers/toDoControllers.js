@@ -49,9 +49,21 @@ const getAllToDos = async (req, res, _next) => {
   }
 }
 
+const updateToDo = async (req, res, _next) => {
+  try {
+    const { title, description } = req.body;
+    const { id } = req.params;
+    const responseData = await toDosServices.updateToDoService({ title, description }, id);
+    return res.status(200).json(responseData);
+  } catch (error) {
+    handleError(error, res);
+  }
+}
+
 module.exports = {
   getById,
   createToDo,
   deleteToDo,
-  getAllToDos
+  getAllToDos,
+  updateToDo
 }
