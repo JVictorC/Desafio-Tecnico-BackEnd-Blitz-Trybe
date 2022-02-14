@@ -5,6 +5,7 @@ const validationBodyToDo = (newToDo) => {
   const { error } = Joi.object({
     title: Joi.string().required(),
     description: Joi.string().required(),
+    status: Joi.string().required(),
   }).validate(newToDo);
   return error;
 }

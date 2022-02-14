@@ -9,11 +9,13 @@ describe('Insere um novo ToDo no BD SERVICE', () => {
   describe('quando o payload informado não é válido', async () => {
     const messageErrorWithOutTitle = { status: 400, message: "\"title\" is required" };
     const messageErrorWithOutDescription = { status: 400, message: '"description" is required' };
+    const messageErrorWithOutStatus = { status: 400, message: '"status" is required' };
 
     it('retorna um Error com Status e Message quando nao passado o title', async () => {
       try {
         await createToDoService({
           description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
+          status: 'Pendente'
         });
 
       } catch (error) {
@@ -24,10 +26,22 @@ describe('Insere um novo ToDo no BD SERVICE', () => {
 
     it('retorna um Error com Status e Message quando nao passado o description', async () => {
       try {
-        await createToDoService({ title: 'Fazer Comida' });
+        await createToDoService({ title: 'Fazer Comida', status: 'Pendente' });
       } catch (error) {
         expect(error).to.be.a('object');
         expect(error).to.deep.equals(messageErrorWithOutDescription);
+      }
+    });
+
+    it('retorna um Error com Status e Message quando nao passado o Status', async () => {
+      try {
+        await createToDoService({
+          title: 'Fazer Comida',
+          description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
+        });
+      } catch (error) {
+        expect(error).to.be.a('object');
+        expect(error).to.deep.equals(messageErrorWithOutStatus);
       }
     });
   });
@@ -36,6 +50,7 @@ describe('Insere um novo ToDo no BD SERVICE', () => {
     const payloadToDo = {
       title: 'Limpar a Casa',
       description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
+      status: 'pendente'
     };
 
     before(() => {

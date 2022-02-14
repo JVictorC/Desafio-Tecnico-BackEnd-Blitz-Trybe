@@ -5,20 +5,22 @@ const todoModels = require('../../models/toDoModels.js');
 const { it, describe, before, after } = require('mocha');
 const Sinon = require('sinon');
 
-describe('Atualizar um novo ToDo no BD SERVICE', () => {
+describe.only('Atualizar um novo ToDo no BD SERVICE', () => {
   const messageErrorWithOutTitle = { status: 400, message: "\"title\" is required" };
   const messageErrorWithOutDescription = { status: 400, message: '"description" is required' };
   const messageErrorWithOutId = { status: 400, message: '"id" is required' };
   const messageErrorNotFoundToDo = { status: 404, message: "toDo Not Found In Data Base" };
+  const messageErrorWithOutStatus = { status: 400, message: '"status" is required' };
   const ID_EXAMPLE = '604cb554311d68f491ba5781';
   const payloadToDo = {
     title: 'Limpar a Casa',
     description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
+    status: 'Concluído'
   };
 
 
   describe('quando o payload informado não é válido', async () => {
-    
+
     before(() => {
       Sinon.stub(todoModels, 'getToDoById').resolves();
     });
@@ -31,6 +33,7 @@ describe('Atualizar um novo ToDo no BD SERVICE', () => {
       try {
         await updateToDoService({
           description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
+          status: 'Pendente'
         });
 
       } catch (error) {
@@ -41,10 +44,22 @@ describe('Atualizar um novo ToDo no BD SERVICE', () => {
 
     it('retorna um Error com Status e Message quando nao passado o description', async () => {
       try {
-        await updateToDoService({ title: 'Fazer Comida' });
+        await updateToDoService({ title: 'Fazer Comida', status: 'Pendente' });
       } catch (error) {
         expect(error).to.be.a('object');
         expect(error).to.deep.equals(messageErrorWithOutDescription);
+      }
+    });
+
+    it('retorna um Error com Status e Message quando nao passado o status', async () => {
+      try {
+        await updateToDoService({
+          title: 'Fazer Comida',
+          description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
+        });
+      } catch (error) {
+        expect(error).to.be.a('object');
+        expect(error).to.deep.equals(messageErrorWithOutStatus);
       }
     });
 
@@ -52,7 +67,8 @@ describe('Atualizar um novo ToDo no BD SERVICE', () => {
       try {
         await updateToDoService({
           title: 'Fazer Comida',
-          description: 'Tenho que Limpar a Casa hoje as 14 da tarde'
+          description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
+          status: 'Pendente'
         });
       } catch (error) {
         expect(error).to.be.a('object');
@@ -64,7 +80,8 @@ describe('Atualizar um novo ToDo no BD SERVICE', () => {
       try {
         await updateToDoService({
           title: 'Fazer Comida',
-          description: 'Tenho que Limpar a Casa hoje as 14 da tarde'
+          description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
+          status: 'Pendente'
         }, ID_EXAMPLE);
       } catch (error) {
         expect(error).to.be.a('object');
@@ -73,8 +90,9 @@ describe('Atualizar um novo ToDo no BD SERVICE', () => {
     });
   });
 
+
   describe('quando é atualizado com sucesso', async () => {
-    
+
     before(() => {
       Sinon.stub(todoModels, 'getToDoById').resolves({});
       Sinon.stub(todoModels, 'updateToDo').resolves({
@@ -100,7 +118,7 @@ describe('Atualizar um novo ToDo no BD SERVICE', () => {
     it('tal objeto possui o "id" do novo toDo atualizado', async () => {
       const response = await updateToDoService(payloadToDo, ID_EXAMPLE);
       expect(response).to.have.a.property('id');
-      expect({...response, id: ID_EXAMPLE}).to.deep.equals({...payloadToDo, id: ID_EXAMPLE});
+      expect({ ...response, id: ID_EXAMPLE }).to.deep.equals({ ...payloadToDo, id: ID_EXAMPLE });
     });
 
   });
