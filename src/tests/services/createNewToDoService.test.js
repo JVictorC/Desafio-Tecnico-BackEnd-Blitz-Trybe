@@ -15,7 +15,9 @@ describe('Insere um novo ToDo no BD SERVICE', () => {
       try {
         await createToDoService({
           description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
-          status: 'Pendente'
+          status: 'Pendente',
+          createAt: new Date().toUTCString(),
+          updatedAt: new Date().toUTCString(),
         });
 
       } catch (error) {

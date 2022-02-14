@@ -13,12 +13,16 @@ describe('Atualizar um toDo no BD', () => {
     {
       title: 'Limpar a Casa',
       description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
-      status: 'Pendente'
+      status: 'Pendente',
+      createAt: new Date().toUTCString(),
+      updatedAt: new Date().toUTCString(),
     },
     {
       title: 'Fazer Comida',
       description: 'Tenho que preparar a comida hoje',
-      status: 'Concluído'
+      status: 'Concluído',
+      createAt: new Date().toUTCString(),
+      updatedAt: new Date().toUTCString(),
     }
   ]
 
@@ -66,7 +70,9 @@ describe('Atualizar um toDo no BD', () => {
       const newToDo = {
         title: 'Limpar a Casa',
         description: 'Tenho que Limpar a Casa hoje as 7 da Manha',
-        status: 'Concluído'
+        status: 'Concluído',
+        createAt: new Date().toUTCString(),
+        updatedAt: new Date().toUTCString(),
       }
 
       await updateToDo(toDoInDataBase['_id'], newToDo);

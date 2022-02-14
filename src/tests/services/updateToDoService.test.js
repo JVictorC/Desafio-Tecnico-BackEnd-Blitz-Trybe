@@ -5,7 +5,7 @@ const todoModels = require('../../models/toDoModels.js');
 const { it, describe, before, after } = require('mocha');
 const Sinon = require('sinon');
 
-describe.only('Atualizar um novo ToDo no BD SERVICE', () => {
+describe('Atualizar um novo ToDo no BD SERVICE', () => {
   const messageErrorWithOutTitle = { status: 400, message: "\"title\" is required" };
   const messageErrorWithOutDescription = { status: 400, message: '"description" is required' };
   const messageErrorWithOutId = { status: 400, message: '"id" is required' };
