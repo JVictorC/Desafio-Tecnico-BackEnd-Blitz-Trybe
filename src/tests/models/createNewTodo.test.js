@@ -12,6 +12,7 @@ describe('Insere um novo toDo no BD', () => {
   const payloadToDo = {
     title: 'Limpar a Casa',
     description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
+    status: 'Pendente'
   }
 
   let DBServer = new MongoMemoryServer();

@@ -13,12 +13,14 @@ describe('Listar todos os Todos do DB', () => {
     {
       title: 'Limpar a Casa',
       description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
+      status: 'Pendente'
     },
     {
       title: 'Fazer Comida',
       description: 'Tenho que preparar a comida hoje',
+      status: 'Concluído'
     }
-  ]
+  ];
 
   let DBServer = new MongoMemoryServer();
   let connectionMock;

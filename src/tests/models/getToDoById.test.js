@@ -13,10 +13,12 @@ describe('Listar o ToDo com o Mesmo Id do DB', () => {
     {
       title: 'Limpar a Casa',
       description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
+      status: 'Pendente'
     },
     {
       title: 'Fazer Comida',
       description: 'Tenho que preparar a comida hoje',
+      status: 'Concluído'
     }
   ]
 

@@ -13,10 +13,12 @@ describe('Atualizar um toDo no BD', () => {
     {
       title: 'Limpar a Casa',
       description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
+      status: 'Pendente'
     },
     {
       title: 'Fazer Comida',
       description: 'Tenho que preparar a comida hoje',
+      status: 'Concluído'
     }
   ]
 
@@ -52,6 +54,7 @@ describe('Atualizar um toDo no BD', () => {
       const response = await updateToDo(toDoInDataBase['_id'], {
         title: 'Limpar a Casa',
         description: 'Tenho que Limpar a Casa hoje as 7 da Manha',
+        status: 'Concluído'
       });
 
       expect(response).to.be.a('object');
@@ -63,6 +66,7 @@ describe('Atualizar um toDo no BD', () => {
       const newToDo = {
         title: 'Limpar a Casa',
         description: 'Tenho que Limpar a Casa hoje as 7 da Manha',
+        status: 'Concluído'
       }
 
       await updateToDo(toDoInDataBase['_id'], newToDo);
