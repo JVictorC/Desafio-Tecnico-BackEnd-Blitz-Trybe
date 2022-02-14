@@ -18,7 +18,13 @@ const validationBody = (newToDo) => {
 const createToDoService = async (newToDo) => {
   validationBody(newToDo);
 
-  const toDo = await todoModels.createToDo(newToDo);
+  const toDoWithDates = {
+    ...newToDo,
+    createAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  }
+
+  const toDo = await todoModels.createToDo(toDoWithDates);
 
   return toDo;
 };
@@ -31,7 +37,13 @@ const updateToDoService = async (newToDo, idToDo) => {
   const toDoInDataBase = await todoModels.getToDoById(idToDo);
   if (!toDoInDataBase) throw { status: 404, message: "toDo Not Found In Data Base" };
 
-  await todoModels.updateToDo(idToDo, newToDo);
+  const toDoWithDates = {
+    ...newToDo,
+    createAt: toDoInDataBase.creatAt1,
+    updatedAt: new Date().toISOString(),
+  }
+
+  await todoModels.updateToDo(idToDo, toDoWithDates);
 
   return {
     id: idToDo,
@@ -64,7 +76,7 @@ const getToDoByIdService = async (idToDo) => {
 
   const toDoInData = await todoModels.getToDoById(idToDo);
 
-  if(!toDoInData) throw { status: 404, message: "toDo Not Found In Data Base" };
+  if (!toDoInData) throw { status: 404, message: "toDo Not Found In Data Base" };
 
   return toDoInData;
 }

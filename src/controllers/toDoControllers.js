@@ -22,8 +22,10 @@ const getById = async (req, res, _next) => {
 
 const createToDo = async (req, res, _next) => {
   try {
-    const { title, description } = req.body;
-    const responseData = await toDosServices.createToDoService({ title, description });
+    const { title, description, status } = req.body;
+    const responseData = await toDosServices.createToDoService({
+      title, description, status
+    });
     return res.status(200).json(responseData);
   } catch (error) {
     handleError(error, res);
