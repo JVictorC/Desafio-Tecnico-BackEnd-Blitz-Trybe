@@ -8,7 +8,7 @@ const conn = require('../../models/connection');
 const { createToDo } = require('../../models/toDoModels');
 
 
-describe.only('Insere um novo toDo no BD', () => {
+describe('Insere um novo toDo no BD', () => {
   const payloadToDo = {
     title: 'Limpar a Casa',
     description: 'Tenho que Limpar a Casa hoje as 14 da tarde',
@@ -53,14 +53,16 @@ describe.only('Insere um novo toDo no BD', () => {
     });
 
     it('deve existir um toDo com o título cadastrado!', async () => {
-      await createToDo(payloadToDo);
+      const toDoInserted = await createToDo(payloadToDo);
       const movieCreated = await connectionMock.collection('toDo').findOne({ title: payloadToDo.title });
-      
+
       expect(movieCreated).to.be.not.null;
 
-      delete movieCreated._id;
+      expect(toDoInserted).to.haveOwnProperty('id');
 
-      expect(movieCreated).to.deep.equals(payloadToDo)
+      delete toDoInserted.id;
+
+      expect(toDoInserted).to.deep.equals(payloadToDo);
     });
   });
 });
