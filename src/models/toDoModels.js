@@ -5,6 +5,9 @@ const maskReturnDataBase = (toDo) => ({
   id: toDo['_id'],
   title: toDo['title'],
   description: toDo['description'],
+  status: toDo['status'],
+  createAt: toDo['createAt'],
+  updatedAt: toDo['updatedAt'],
 })
 
 const createToDo = async (newToDo) => {
